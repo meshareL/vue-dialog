@@ -1,0 +1,27 @@
+import pkg from './package.json' assert { type: 'json' };
+
+export default  {
+    presets: [
+        ['@babel/preset-env', {
+            // debug: true,
+            bugfixes: true,
+            useBuiltIns: false
+        }],
+        ['@babel/preset-typescript', {
+            allowDeclareFields: true,
+            optimizeConstEnums: true
+        }]
+    ],
+    plugins: [
+        ['@babel/plugin-transform-runtime', {
+            version: pkg.dependencies['@babel/runtime']
+        }],
+        ['babel-plugin-polyfill-corejs3', {
+            // debug: true,
+            exclude: [ 'es.array.push' ],
+            method: 'usage-pure',
+            version: pkg.dependencies['core-js-pure'],
+            proposals: true
+        }]
+    ]
+};

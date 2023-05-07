@@ -1,0 +1,188 @@
+{
+  "$schema": "http://json.schemastore.org/web-types",
+  "framework": "vue",
+  "name": "@tomoeed/vue-dialog",
+  "version": "1.0.0",
+  "js-types-syntax": "typescript",
+  "description-markup": "markdown",
+  "framework-config": {
+    "enable-when": {
+      "node-packages": [
+        "vue",
+        "@vue/cli"
+      ],
+      "file-extensions": [
+        "vue"
+      ],
+      "ide-libraries": [
+        "vue"
+      ]
+    }
+  },
+  "contributions": {
+    "html": {
+      "vue-components": [
+        {
+          "name": "Container",
+          "source": {
+            "module": "@tomoeed/vue-dialog",
+            "symbol": "Container"
+          },
+          "doc-url": "https://github.com/meshareL/vue-dialog/blob/master/doc/container",
+          "description": "如果对话框只是用来展示一简单的些信息, 则可以配合该组件使用",
+          "props": [
+            {
+              "name": "default-open",
+              "type": "boolean",
+              "default": "false",
+              "description": "对话框默认是否打开"
+            }
+          ],
+          "slots": [
+            {
+              "name": "default",
+              "required": true
+            }
+          ]
+        },
+        {
+          "name": "Dialog",
+          "source": {
+            "module": "@tomoeed/vue-dialog",
+            "symbol": "Dialog"
+          },
+          "doc-url": "https://github.com/meshareL/vue-dialog/blob/master/doc/dialog",
+          "props": [
+            {
+              "name": "modelValue",
+              "type": "boolean",
+              "required": true
+            },
+            {
+              "name": "modal",
+              "type": "boolean | { backdropDismissible?: boolean; }",
+              "default": "false",
+              "description": "是否显示为模态对话框<br>模态对话框默认不能通过点击 backdrop 区域关闭对话框. 如果需要该行为, 则需要明确传递 backdropDismissible 参数"
+            },
+            {
+              "name": "keyboard-dismissible",
+              "type": "boolean",
+              "description": "键盘 Escape 按键是否可以关闭对话框<br>当使用模态对话框时, 默认可以通过 Escape 键关闭对话框<br>当使用非模态对话框时, 则默认不可以通过 Escape 键关闭对话框"
+            },
+            {
+              "name": "draggable",
+              "type": "boolean | { relocation?: boolean; }",
+              "description": "对话框是否可拖动, 对话框被拖动后再次打开默认不会重置定位, 如果需要该行为, 则需要明确传递 relocation 参数"
+            },
+            {
+              "name": "retain-focus",
+              "type": "boolean",
+              "default": "false",
+              "description": "对话框关闭后是否保留此次最后聚焦的元素的焦点, 当再次打开对话框时聚焦到此元素"
+            },
+            {
+              "name": "scrollLock",
+              "type": "boolean",
+              "default": "false",
+              "description": "对话框开启时, 是否锁定屏幕滚动"
+            }
+          ],
+          "js": {
+            "events": [
+              {
+                "name": "update:modelValue",
+                "arguments": [
+                  {
+                    "name": "value",
+                    "type": "boolean"
+                  }
+                ]
+              },
+              {
+                "name": "before-open"
+              },
+              {
+                "name": "opened"
+              },
+              {
+                "name": "before-close",
+                "description": "如果监听了该事件, 则必须调用 done 函数, 对话框才会完全关闭",
+                "arguments": [
+                  {
+                    "name": "done",
+                    "type": "() => void"
+                  }
+                ]
+              },
+              {
+                "name": "closed"
+              }
+            ]
+          },
+          "slots": [
+            {
+              "name": "default"
+            }
+          ]
+        },
+        {
+          "name": "Header",
+          "source": {
+            "module": "@tomoeed/vue-dialog",
+            "symbol": "Header"
+          },
+          "doc-url": "https://github.com/meshareL/vue-dialog/blob/master/doc/header",
+          "props": [
+            {
+              "name": "dismissible",
+              "type": "boolean",
+              "default": "true",
+              "description": "是否显示关闭对话框按钮"
+            }
+          ],
+          "slots": [
+            {
+              "name": "default"
+            },
+            {
+              "name": "subtitle",
+              "description": "标题栏副标题"
+            }
+          ]
+        },
+        {
+          "name": "Body",
+          "source": {
+            "module": "@tomoeed/vue-dialog",
+            "symbol": "Body"
+          },
+          "props": [
+            {
+              "name": "as",
+              "type": "string",
+              "default": "div",
+              "description": "如果你想要将该组件渲染为非 `div` 标签, 则指定该参数 (如: form)"
+            }
+          ],
+          "slots": [
+            {
+              "name": "default"
+            }
+          ]
+        },
+        {
+          "name": "Footer",
+          "source": {
+            "module": "@tomoeed/vue-dialog",
+            "symbol": "Footer"
+          },
+          "slots": [
+            {
+              "name": "default"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

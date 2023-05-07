@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Vue dialog</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@primer/css@21.0.1/dist/primer.css">
+  <link rel="stylesheet" href="../dist/index.css">
+  <style>
+    body {
+      height: 100vh;
+      background-color: #ffffff;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      body {
+        background-color: #22272e;
+      }
+    }
+  </style>
+</head>
+<body>
+<div id="root" class="container-lg pt-10" style="height: 100%"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.global.min.js"></script>
+<script src="../dist/index.umd.js"></script>
+<script>
+  const App = Vue.defineComponent({
+    name: 'App',
+    components: {
+      Container: VueDialog.Container,
+      Dialog: VueDialog.Dialog,
+      Header: VueDialog.Header,
+      Body: VueDialog.Body,
+      Footer: VueDialog.Footer
+    },
+    setup() {
+      return { };
+    },
+    template: `
+      <Container #default="{ status, changeStatus }">
+        <Dialog :model-value="status" @update:model-value="changeStatus" style="width: 450px">
+          <Header dismissible>What is Vue?</Header>
+          <Body as="p">
+            Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces.
+            It builds on top of standard HTML, CSS, and JavaScript and provides a declarative
+            and component-based programming model that helps you efficiently develop user interfaces, be they simple or
+            complex.
+          </Body>
+        </Dialog>
+        <button class="btn" @click="() => changeStatus(true)" type="button">Dialog</button>
+      </Container>
+
+      <Container #default="{ status, changeStatus }">
+        <Dialog :model-value="status"
+                @update:model-value="changeStatus"
+                :modal="{ backdropDismissible: true }"
+                style="width: 450px">
+          <Header dismissible>What is Vue?</Header>
+          <Body as="p">
+            Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces.
+            It builds on top of standard HTML, CSS, and JavaScript and provides a declarative
+            and component-based programming model that helps you efficiently develop user interfaces, be they simple or
+            complex.
+          </Body>
+        </Dialog>
+        <button class="btn ml-2" @click="() => changeStatus(true)" type="button">Modal dialog</button>
+      </Container>
+
+      <Container #default="{ status, changeStatus }">
+        <Dialog :model-value="status"
+                @update:model-value="changeStatus"
+                :modal="{ backdropDismissible: true }"
+                :draggable="{ relocation: true }"
+                retain-focus
+                style="width: 450px"
+                #default="{ ref }">
+          <Header>Title</Header>
+          <Body as="p">
+            Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces.
+            It builds on top of standard HTML, CSS, and JavaScript and provides a declarative
+            and component-based programming model that helps you efficiently develop user interfaces, be they simple or
+            complex.
+          </Body>
+          <Footer>
+            <button :ref="ref" class="btn" type="button" @click="() => changeStatus(false)">Close</button>
+          </Footer>
+        </Dialog>
+        <button class="btn ml-2" type="button" @click="() => changeStatus(true)">Draggable dialog</button>
+      </Container>
+
+      <Container #default="{ status, changeStatus }">
+        <Dialog :model-value="status"
+                @update:model-value="changeStatus"
+                retain-focus
+                keyboard-dismissible
+                style="width: 450px">
+          <Header dismissible>What is Vue?</Header>
+          <Body as="form">
+            <input type="text" name="username" id="username" autofocus>
+            <input type="email" name="email" id="email">
+          </Body>
+        </Dialog>
+        <button class="btn ml-2" type="button" @click="() => changeStatus(true)">Autofocus</button>
+      </Container>
+    `
+  });
+
+  Vue
+    .createApp(App)
+    .mount('#root');
+</script>
+</body>
+</html>
