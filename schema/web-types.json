@@ -121,7 +121,8 @@
           },
           "slots": [
             {
-              "name": "default"
+              "name": "default",
+              "type": "{ ref: (node: Element | ComponentPublicInstance) => void }"
             }
           ]
         },

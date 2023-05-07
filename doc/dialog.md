@@ -19,6 +19,29 @@ const status = ref(false);
 </script>
 ```
 
+## 指定聚焦元素
+
+对话框打开后, 会首先寻找具有 `autofocus` 属性的元素, 如果不存在则会尝试聚焦用户指定的元素,
+如果依然不存在则会尝试聚焦 `Header` 组件的关闭按钮, 最后会尝试聚焦对话框自身
+
+你可以使用默认插槽的 `ref` prop 指定你想要聚焦的元素
+
+```vue
+<template>
+<Dialog v-model="status"
+        #default="{ ref }">
+  <button :ref="ref" type="button">Button</button>
+</Dialog>
+</template>
+
+<script setup>
+import { ref } from 'vue';
+import { Dialog } from '@tomoeed/vue-dialog';
+
+const status = ref(false);
+</script>
+```
+
 ## Props
 
 | Prop                | 说明                                                                                             | 类型                                            | 默认值   |
@@ -37,3 +60,9 @@ const status = ref(false);
 | opened       | 对话框打开动画已结束回调                                       | () => void                 |
 | before-close | 对话框关闭动画开始前回调, 如果监听了该事件, 则必须调用 `done` 函数, 对话框才会完全关闭 | (done: () => void) => void |
 | closed       | 对话框关闭动画已结束回调                                       | () => void                 |
+
+## Slots
+
+| 插槽名     | 说明 | Props                                                       |
+|---------|----|-------------------------------------------------------------|
+| default |    | { ref: (node: Element \| ComponentPublicInstance) => void } |
