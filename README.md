@@ -28,10 +28,10 @@ const status = ref(false);
 
 ## 组件
 
-- [Container](https://github.com/meshareL/vue-dialog/blob/master/blob/doc/container)
-- [Dialog](https://github.com/meshareL/vue-dialog/blob/master/blob/doc/dialog)
-- [Header](https://github.com/meshareL/vue-dialog/blob/master/blob/doc/header)
-- [Body](https://github.com/meshareL/vue-dialog/blob/master/blob/doc/body)
+- [Container](https://github.com/meshareL/vue-dialog/blob/master/doc/container.md)
+- [Dialog](https://github.com/meshareL/vue-dialog/blob/master/doc/dialog.md)
+- [Header](https://github.com/meshareL/vue-dialog/blob/master/doc/header.md)
+- [Body](https://github.com/meshareL/vue-dialog/blob/master/doc/body.md)
 - Footer
 
 ## License
