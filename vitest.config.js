@@ -8,7 +8,7 @@ export default defineConfig({
         mockReset: true,
         restoreMocks: true,
         reporters: 'basic',
-        cache: { dir: 'node_modules/.cache/.vitest' },
+        cacheDir: 'node_modules/.cache/.vitest',
         coverage: {
             enabled: true,
             include: [

@@ -27,11 +27,9 @@
   "types": "dist/index.d.ts",
   "web-types": "schema/web-types.json",
   "exports": {
-    ".": {
-      "require": "dist/index.umd.js",
-      "import": "dist/index.esm.js",
-      "types": "dist/index.d.ts"
-    }
+    "types": "./dist/index.d.ts",
+    "import": "./dist/index.esm.js",
+    "browser": "./dist/index.umd.js"
   },
   "publishConfig": {
     "access": "public",
@@ -50,40 +48,40 @@
     "vue": "3.x"
   },
   "dependencies": {
-    "type-fest": "^4.15.0"
+    "type-fest": "^4.23.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.24.4",
-    "@babel/plugin-transform-runtime": "^7.24.3",
-    "@babel/preset-env": "^7.24.4",
-    "@babel/preset-typescript": "^7.24.1",
-    "@babel/runtime": "^7.24.4",
-    "@microsoft/api-extractor": "^7.43.1",
-    "@neodrag/vanilla": "^2.0.4",
+    "@babel/core": "^7.24.9",
+    "@babel/plugin-transform-runtime": "^7.24.7",
+    "@babel/preset-env": "^7.24.8",
+    "@babel/preset-typescript": "^7.24.7",
+    "@babel/runtime": "^7.24.8",
+    "@microsoft/api-extractor": "^7.47.3",
+    "@neodrag/vanilla": "^2.0.5",
     "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-terser": "^0.4.4",
     "@rollup/plugin-typescript": "^11.1.6",
-    "@types/jsdom": "^21.1.6",
-    "@types/node": "^20.12.7",
+    "@types/jsdom": "^21.1.7",
+    "@types/node": "^20.14.12",
     "@types/throttle-debounce": "^5.0.2",
-    "@vitest/coverage-v8": "^1.5.0",
-    "@vue/test-utils": "^2.4.5",
+    "@vitest/coverage-v8": "^2.0.4",
+    "@vue/test-utils": "^2.4.6",
     "autoprefixer": "^10.4.19",
     "babel-plugin-polyfill-corejs3": "^0.10.4",
     "body-scroll-lock-upgrade": "^1.1.0",
-    "core-js-pure": "^3.36.1",
-    "cssnano": "^6.1.2",
-    "jsdom": "^24.0.0",
+    "core-js-pure": "^3.37.1",
+    "cssnano": "^7.0.4",
+    "jsdom": "^24.1.1",
     "npm-run-all": "^4.1.5",
-    "postcss": "^8.4.38",
-    "rimraf": "^5.0.5",
-    "rollup": "^4.14.2",
-    "sass": "^1.75.0",
-    "tslib": "^2.6.2",
-    "typescript": "^5.4.5",
-    "vitest": "^1.5.0",
+    "postcss": "^8.4.39",
+    "rimraf": "^6.0.1",
+    "rollup": "^4.19.0",
+    "sass": "^1.77.8",
+    "tslib": "^2.6.3",
+    "typescript": "^5.5.4",
+    "vitest": "^2.0.4",
     "vue": "^3.2.47"
   }
 }
