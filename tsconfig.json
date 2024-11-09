@@ -9,27 +9,30 @@
     "module": "ESNext",
     "moduleResolution": "bundler",
     "resolveJsonModule": true,
+    "rootDir": ".",
     "declaration": true,
-    "declarationDir": "type",
+    "declarationDir": "dist",
     "declarationMap": false,
     "emitDeclarationOnly": true,
-    "newLine": "lf",
     "noEmit": false,
-    "noEmitOnError": true,
     "allowJs": true,
-    "checkJs": true,
     "esModuleInterop": true,
-    "isolatedModules": true,
     "verbatimModuleSyntax": true,
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
     "jsx": "preserve",
+    "jsxImportSource": "vue",
     "lib": [
+      "ESNext",
       "DOM",
-      "ESNext"
+      "DOM.Iterable"
     ],
     "target": "ESNext",
+    "useDefineForClassFields": true,
     "skipLibCheck": true
   },
   "include": [
+    "env.d.ts",
     "src/**/*.ts",
     "test/**/*.ts"
   ],

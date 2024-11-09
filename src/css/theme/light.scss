@@ -1,0 +1,23 @@
+@use '../support' as base;
+
+$base-color-fg: #1c1f23 !default;
+
+:root,
+html[data-theme='light']:root {
+  color-scheme: light;
+  --kd-border-width: 1px;
+  --kd-border-style: solid;
+  --kd-border: var(--kd-border-width) var(--kd-border-style) var(--kd-border-color);
+  --kd-border-radius: 6px;
+  --kd-dialog-depth: 70;
+  --kd-backdrop-depth: 50;
+
+  --kd-fg-color: #{$base-color-fg};
+  --kd-fg-color-minor: rgb(from #{$base-color-fg} r g b / 60%);
+  --kd-bg-color: #{base.$base-color-white};
+  --kd-border-color: rgb(from #{$base-color-fg} r g b / 8%);
+  --kd-backdrop-color: rgb(from black r g b / 70%);
+  --kd-shadow: 0 3px 6px rgb(from #{$base-color-fg} r g b / 4%);
+  --kd-closer-hover-bg-color: rgb(from #2e3238 r g b / 9%);
+  --kd-closer-focus-outline-color: #096ee3;
+}

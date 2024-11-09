@@ -1,15 +1,15 @@
 import { describe, it, afterEach, expect } from 'vitest';
 import { enableAutoUnmount, mount } from '@vue/test-utils';
-import { h as createElement} from 'vue';
-import Container from '../src/container';
+import { h as createElement } from 'vue';
+import Container from '../src/component/container';
 
 enableAutoUnmount(afterEach);
 
 describe('Container component', () => {
     it('create component', () => {
-        const instance = mount(Container as any, {
+        const instance = mount(Container, {
             props: { defaultOpen: true },
-            slots: { default:() => 'body' }
+            slots: { default: () => 'body' }
         });
 
         expect(instance.exists()).toBe(true);
@@ -17,14 +17,14 @@ describe('Container component', () => {
     });
 
     it('no default slot is provided', () => {
-        expect(() => mount(Container as any)).toThrow();
+        expect(() => mount(Container)).toThrow();
     });
 
     it('default slot', async () => {
-        let instance = mount(Container as any, {
+        let instance = mount(Container, {
             props: { defaultOpen: false },
             slots: {
-                default: ({ status, changeStatus }) => createElement('button', { onClick: () => changeStatus(true) }, status)
+                default: ({ status, toggle }) => createElement('button', { onClick: () => toggle(true) }, status)
             }
         });
         expect(instance.exists()).toBe(true);
@@ -35,10 +35,10 @@ describe('Container component', () => {
         await button.trigger('click');
         expect(button.text()).toBe('true');
 
-        instance = mount(Container as any, {
+        instance = mount(Container, {
             props: { defaultOpen: true },
             slots: {
-                default: ({ status, changeStatus }) => createElement('button', { onClick: () => changeStatus(false) }, status)
+                default: ({ status, toggle }) => createElement('button', { onClick: () => toggle(false) }, status)
             }
         });
         expect(instance.exists()).toBe(true);
@@ -49,10 +49,10 @@ describe('Container component', () => {
         await button.trigger('click');
         expect(button.text()).toBe('false');
 
-        instance = mount(Container as any, {
+        instance = mount(Container, {
             props: { defaultOpen: true },
             slots: {
-                default: ({ status, changeStatus }) => createElement('button', { onClick: () => changeStatus() }, status)
+                default: ({ status, toggle }) => createElement('button', { onClick: () => toggle() }, status)
             }
         });
         expect(instance.exists()).toBe(true);

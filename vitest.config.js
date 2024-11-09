@@ -12,11 +12,12 @@ export default defineConfig({
         coverage: {
             enabled: true,
             include: [
-                'src/dialog.ts',
-                'src/header.ts',
-                'src/body.ts',
-                'src/footer.ts',
-                'src/container.ts'
+                'src/component/dialog.ts',
+                'src/component/header.ts',
+                'src/component/body.ts',
+                'src/component/footer.ts',
+                'src/component/container.ts',
+                'src/component/command.ts'
             ]
         }
     }

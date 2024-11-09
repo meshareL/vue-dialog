@@ -1,0 +1,23 @@
+@use '../support' as base;
+
+$base-color-fg: #f9f9f9 !default;
+
+@mixin scheme() {
+  color-scheme: dark;
+  --kd-fg-color: #{$base-color-fg};
+  --kd-fg-color-minor: rgb(from #{$base-color-fg} r g b / 80%);
+  --kd-border-color: #{$base-color-fg};
+  --kd-shadow: none;
+  --kd-closer-hover-bg-color: rgb(from #{base.$base-color-white} r g b / 30%);
+  --kd-closer-focus-outline-color: #65a9ee;
+}
+
+@media (prefers-contrast: more) and (prefers-color-scheme: dark) {
+  :root {
+    @include scheme;
+  }
+}
+
+html[data-contrast='more'][data-theme='dark']:root {
+  @include scheme;
+}

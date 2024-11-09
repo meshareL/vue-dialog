@@ -1,0 +1,23 @@
+@use '../support' as base;
+
+$base-color-fg: #1c1f23 !default;
+
+@mixin scheme() {
+  color-scheme: light;
+  --kd-fg-color: #{$base-color-fg};
+  --kd-fg-color-minor: rgb(from #{$base-color-fg} r g b / 80%);
+  --kd-border-color: #{$base-color-fg};
+  --kd-shadow: none;
+  --kd-closer-hover-bg-color: rgb(from #2e3238 r g b / 30%);
+  --kd-closer-focus-outline-color: #00439c
+}
+
+@media (prefers-contrast: more) {
+  :root {
+    @include scheme;
+  }
+}
+
+html[data-contrast='more']:root {
+  @include scheme;
+}

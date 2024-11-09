@@ -1,6 +1,8 @@
 import { describe, it, afterEach, expect } from 'vitest';
 import { enableAutoUnmount, shallowMount, mount } from '@vue/test-utils';
-import Body from '../src/body';
+import { h as createElement } from 'vue';
+import Body from '../src/component/body';
+import classnames from '../src/css/index.module.scss';
 
 enableAutoUnmount(afterEach);
 
@@ -9,17 +11,7 @@ describe('Body component', () => {
         const instance = shallowMount(Body);
 
         expect(instance.exists()).toBe(true);
-        expect(instance.classes('dialog-body')).toBe(true);
-    });
-
-    it('prop as', async () => {
-        const instance = shallowMount(Body);
-
-        expect(instance.exists()).toBe(true);
-        expect(instance.element.nodeName).toBe('DIV');
-
-        await instance.setProps({ as: 'form' });
-        expect(instance.element.nodeName).toBe('FORM');
+        expect(instance.classes(classnames.body)).toBe(true);
     });
 
     it('default slot', () => {
@@ -27,5 +19,12 @@ describe('Body component', () => {
 
         expect(instance.exists()).toBe(true);
         expect(instance.text()).toBe('text');
+    });
+
+    it('as slot', () => {
+        const instance = mount(Body, { slots: { as: asProps => createElement('form', asProps) } });
+
+        expect(instance.exists()).toBe(true);
+        expect(instance.get('form').classes(classnames.body)).toBe(true);
     });
 });

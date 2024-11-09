@@ -3,111 +3,227 @@
 <head>
   <meta charset="UTF-8">
   <title>Vue dialog</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@primer/css@21.0.1/dist/primer.css">
-  <link rel="stylesheet" href="../dist/index.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../dist/index.min.css">
   <style>
-    body {
-      height: 100vh;
-      background-color: #ffffff;
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --canvas-fg-color: #24292f;
+      --canvas-bg-color: #ffffff;
     }
 
     @media (prefers-color-scheme: dark) {
-      body {
-        background-color: #22272e;
+      :root {
+        --canvas-fg-color: #f9f9f9;
+        --canvas-bg-color: #16161a;
       }
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+      font-size: 14px;
+      line-height: 1.5;
+      color: var(--canvas-fg-color);
+      background-color: var(--canvas-bg-color);
+      margin: 0;
+    }
+
+    .mr-16 { margin-inline-end: 16px; }
+
+    #root {
+      height: 100vb;
+      margin-inline: auto;
+      padding-block-start: 100px;
+    }
+
+    #autofocus_form .form-group {
+      margin-block-end: 12px;
+    }
+
+    #autofocus_form label {
+      display: block;
+      font-weight: 500;
+      margin-block-end: 8px;
+    }
+
+    #autofocus_form input {
+      inline-size: 100%;
+      padding-block: 4px;
+      padding-inline: 4px;
     }
   </style>
 </head>
 <body>
-<div id="root" class="container-lg pt-10" style="height: 100%"></div>
+  <div id="root"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.global.min.js"></script>
-<script src="../dist/index.umd.js"></script>
-<script>
-  const App = Vue.defineComponent({
-    name: 'App',
-    components: {
-      Container: VueDialog.Container,
-      Dialog: VueDialog.Dialog,
-      Header: VueDialog.Header,
-      Body: VueDialog.Body,
-      Footer: VueDialog.Footer
-    },
-    setup() {
-      return { };
-    },
-    template: `
-      <Container #default="{ status, changeStatus }">
-        <Dialog :model-value="status" @update:model-value="changeStatus" style="width: 450px">
-          <Header dismissible>What is Vue?</Header>
-          <Body as="p">
-            Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces.
-            It builds on top of standard HTML, CSS, and JavaScript and provides a declarative
-            and component-based programming model that helps you efficiently develop user interfaces, be they simple or
-            complex.
-          </Body>
-        </Dialog>
-        <button class="btn" @click="() => changeStatus(true)" type="button">Dialog</button>
-      </Container>
+  <script src="https://cdn.jsdelivr.net/npm/focus-visible@5.2.1/dist/focus-visible.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vue@3.5.12/dist/vue.global.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@neodrag/vanilla@2.0.5/dist/umd/index.min.js"></script>
+  <script src="../dist/index.umd.min.js"></script>
+  <script>
+    const { defineComponent, createApp, ref, h: createElement } = Vue;
+    const {
+      Container,
+      Dialog,
+      Header,
+      Body,
+      Footer,
+      alert: alertDialog,
+      confirm: confirmDialog,
+      prompt: promptDialog
+    } = VueDialog;
 
-      <Container #default="{ status, changeStatus }">
-        <Dialog :model-value="status"
-                @update:model-value="changeStatus"
-                :modal="{ backdropDismissible: true }"
-                style="width: 450px">
-          <Header dismissible>What is Vue?</Header>
-          <Body as="p">
-            Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces.
-            It builds on top of standard HTML, CSS, and JavaScript and provides a declarative
-            and component-based programming model that helps you efficiently develop user interfaces, be they simple or
-            complex.
-          </Body>
-        </Dialog>
-        <button class="btn ml-2" @click="() => changeStatus(true)" type="button">Modal dialog</button>
-      </Container>
+    const App = defineComponent({
+      name: 'App',
+      components: {
+        Container,
+        Dialog,
+        Header,
+        Body,
+        Footer
+      },
+      setup() {
+        async function commandDialog() {
+          const userId = await promptDialog({
+            title: 'Delete user',
+            content: 'Enter the ID to delete',
+            input: createElement('input'),
+            confirmButton: createElement('button', 'Confirm'),
+            cancelButton: createElement('button', 'Cancel')
+          });
 
-      <Container #default="{ status, changeStatus }">
-        <Dialog :model-value="status"
-                @update:model-value="changeStatus"
-                :modal="{ backdropDismissible: true }"
-                :draggable="{ relocation: true }"
-                retain-focus
-                style="width: 450px"
-                #default="{ ref }">
-          <Header>Title</Header>
-          <Body as="p">
-            Vue (pronounced /vjuː/, like view) is a JavaScript framework for building user interfaces.
-            It builds on top of standard HTML, CSS, and JavaScript and provides a declarative
-            and component-based programming model that helps you efficiently develop user interfaces, be they simple or
-            complex.
-          </Body>
-          <Footer>
-            <button :ref="ref" class="btn" type="button" @click="() => changeStatus(false)">Close</button>
-          </Footer>
-        </Dialog>
-        <button class="btn ml-2" type="button" @click="() => changeStatus(true)">Draggable dialog</button>
-      </Container>
+          if (!userId) return null;
 
-      <Container #default="{ status, changeStatus }">
-        <Dialog :model-value="status"
-                @update:model-value="changeStatus"
-                retain-focus
-                keyboard-dismissible
-                style="width: 450px">
-          <Header dismissible>What is Vue?</Header>
-          <Body as="form">
-            <input type="text" name="username" id="username" autofocus>
-            <input type="email" name="email" id="email">
-          </Body>
-        </Dialog>
-        <button class="btn ml-2" type="button" @click="() => changeStatus(true)">Autofocus</button>
-      </Container>
-    `
-  });
+          const deleteConfirm = await confirmDialog({
+            title: 'Delete user',
+            content: `Are you sure you want to delete "${userId}"?`,
+            confirmButton: createElement('button', 'Confirm'),
+            cancelButton: createElement('button', 'Cancel')
+          });
 
-  Vue
-    .createApp(App)
-    .mount('#root');
-</script>
+          if (!deleteConfirm) return null;
+
+          await alertDialog({
+            title: 'Delete user',
+            content: `${userId} deleted successfully.`,
+            confirmButton: createElement('button', 'Confirm'),
+          });
+        }
+
+        const title = 'Bid to fund AI camera on high risk Devon road';
+        const subtitle = 'A trial of the camera caught hundreds of people using their phones and not wearing a seatbelt';
+        const content = `
+<p style="margin-block-start: 0">
+  Council officials want to use road safety funding to install an artificial
+  intelligence [AI] camera on a road that was categorised as high risk of death and serious injury.
+</p>
+<p>
+  Devon County Council was awarded more than £5m in March from the Department for Transport’s Safer
+  Roads Fund to improve safety on the A361.
+</p>
+<p>
+  Following evidence gathered during an AI camera pilot over the summer, it will bid to use £600,000 of that funding
+  on the technology to target unsafe driving habits.
+</p>
+<p>
+  Devon councillor Stuart Hughes, cabinet member for highways management, said the pilot revealed a high number of
+  people driving without wearing a seatbelt or while using a mobile phone.
+</p>
+<p>During the pilot 1,799 potential offences were detected over a four-week period.</p>
+<p>These included 1,363 instances where a seat belt was not worn and 436 mobile phone distraction offences.</p>
+<p>
+  Each is being reviewed by officers at Vision Zero South West, a partnership which includes Devon and Cornwall
+  Police and the council and aims to reduce serious and fatal collisions.
+</p>
+<p>
+  Hughes, who is also vice chair of Vision Zero South West, said: "I'm particularly keen on the use of the latest
+  technology and innovation to target drivers with unsafe driving habits.
+</p>
+<p style="margin-block-end: 0">
+  "Through using state-of-the-art technology, we want to reduce these dangerous driving
+  practices and make our roads safer for everyone."
+</p>
+`;
+
+        return { commandDialog, title, subtitle, content };
+      },
+      template: `
+        <button class="mr-16" type="button" @click="commandDialog">command dialog</button>
+
+        <Container #default="{ status, toggle }">
+          <button class="btn mr-16" @click="() => toggle(true)" type="button">Open dialog</button>
+          <Dialog :model-value="status" @update:model-value="toggle">
+            <Header dismissible>
+              {{ title }}
+              <template #subtitle>{{ subtitle }}</template>
+            </Header>
+            <Body v-html="content"/>
+          </Dialog>
+        </Container>
+
+        <Container #default="{ status, toggle }">
+          <button class="btn mr-16" @click="() => toggle(true)" type="button">Open modal dialog</button>
+          <Dialog :model-value="status"
+                  @update:model-value="toggle"
+                  :modal="{ backdropDismissible: true }">
+            <Header dismissible>
+              {{ title }}
+              <template #subtitle>{{ subtitle }}</template>
+            </Header>
+            <Body v-html="content"/>
+          </Dialog>
+        </Container>
+
+        <Container #default="{ status, toggle }">
+          <button class="btn mr-16" type="button" @click="() => toggle(true)">Open draggable dialog</button>
+          <Dialog :model-value="status"
+                  @update:model-value="toggle"
+                  :modal="{ backdropDismissible: true }"
+                  :draggable="{ relocation: true }"
+                  retain-focus
+                  #default="{ ref }">
+            <Header dismissible>
+              {{ title }}
+              <template #subtitle>{{ subtitle }}</template>
+            </Header>
+            <Body v-html="content"/>
+            <Footer>
+              <button :ref="ref" class="btn" type="button" @click="() => toggle(false)">Close</button>
+            </Footer>
+          </Dialog>
+        </Container>
+
+        <Container #default="{ status, toggle }">
+          <button class="btn" type="button" @click="() => toggle(true)">Open autofocus dialog</button>
+          <Dialog :model-value="status"
+                  @update:model-value="toggle"
+                  retain-focus
+                  keyboard-dismissible
+                  #default="{ ref }">
+            <Header dismissible>{{ title }}</Header>
+            <Body #as="asProps">
+              <form action="/" v-bind="asProps" id="autofocus_form">
+                <div class="form-group">
+                  <label for="username">Username</label>
+                  <input type="text" name="username" id="username" autofocus>
+                </div>
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <input type="email" name="email" id="email">
+                </div>
+              </form>
+            </Body>
+            <Footer>
+              <button :ref="ref" class="btn mr-16" type="button" @click="() => toggle(false)">Cancel</button>
+              <button type="submit" form="autofocus_form">Confirm</button>
+            </Footer>
+          </Dialog>
+        </Container>
+      `
+    });
+
+    createApp(App).mount('#root');
+  </script>
 </body>
 </html>

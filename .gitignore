@@ -7,4 +7,3 @@ gen
 node_modules
 dist
 coverage
-!/test/dialog.spec.ts

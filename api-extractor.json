@@ -1,7 +1,7 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/api-extractor/v7/api-extractor.schema.json",
   "newlineKind": "lf",
-  "mainEntryPointFilePath": "<projectFolder>/dist/type/index.d.ts",
+  "mainEntryPointFilePath": "<projectFolder>/dist/src/component/index.d.ts",
   "apiReport": {
     "enabled": false
   },
